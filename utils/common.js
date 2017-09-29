@@ -62,6 +62,7 @@ function toastSuccess() {
  */
 function doWechatPay(prepayId, successCallback, failCallback, completeCallback) {
     var nonceString = getRandomString();
+    console.error(nonceString);
     var currentTimeStamp = getCurrentTimeStamp();
     var packageName = "prepay_id=" + prepayId;
     var dataMap = {

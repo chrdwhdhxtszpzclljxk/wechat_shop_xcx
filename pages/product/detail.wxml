@@ -13,11 +13,12 @@
     </block>
   </swiper>
   <view class="title">{{itemData.name}}</view>
+  <view class="intro">{{itemData.intro}}</view>
   <view class="gmxx">
     <view><span class="jiage">¥：{{itemData.price_yh}}</span> <span class="c6 fl_r font_14" style='color:#ccc'>库存：{{itemData.num}}</span> </view>
     <view class="font_14 c6">品牌：{{itemData.brand}}</view>
     
-    <view class="font_14 c6">支付：微信支付</view>
+    <!--<view class="font_14 c6">支付：微信支付</view>-->
 
   </view>
 </view>
@@ -80,16 +81,62 @@
   <view class="bre swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">图文详情</view>
   <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">产品参数</view>
 </view>
-<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+<swiper  style="height: {{clientHeight?clientHeight+'px':'auto'}}" current="{{currentTab}}" class="swiper-box" duration="300"  bindchange="bindChange">
 
   <!-- 图文详情 -->
   <swiper-item>
+  <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
+  <rich-text nodes="{{itemData.content}}" />
+            <view class="cont_list">
+            <navigator open-type="redirect" class="pr" url="../product/detail?productId={{item.id}}" hover-class="changestyle"
+                      wx:for="{{productData}}">
+              <image class="photo" src="{{item.photo_x}}"></image>
+              <view class="title">{{item.name}}</view>
+              <view style="display:flex;line-height:50rpx;padding:10rpx 0;">
+                <view class="gmxx" style="  color: red;">¥ {{item.price_yh}}</view>
+              </view>
+              <view style="display:flex;line-height:50rpx;color:#999">
+                <view class="gmxx" style="font-size:28rpx;width:30%">
+                  <text wx:if="item.is_show==1">新品</text>
+                  <text wx:elif="item.is_hot==1">热销</text>
+                  <text wx:else>推荐</text>
+                </view>
+                <view class="ku" style="width:60%">销量：{{item.shiyong}}</view>
+              </view>
+            </navigator>
+          </view>
+  </scroll-view>
+  <!--
     <import src="../../wxParse/wxParse.wxml"/> 
     <view class="wxParse">
-        <scroll-view style="height:2000rpx;" scroll-y='true'>
-          <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
-        </scroll-view>
+        <view ><scroll-view scroll-y='true' style="height:{{winHeight - 31}}px;">
+          <view>
+            <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+          </view>
+
+          <view class="cont_list">
+            <navigator class="pr" url="../product/detail?productId={{item.id}}" hover-class="changestyle"
+                      wx:for="{{productData}}">
+              <image class="photo" src="{{item.photo_x}}"></image>
+              <view class="title">{{item.name}}</view>
+              <view style="display:flex;line-height:50rpx;padding:10rpx 0;">
+                <view class="gmxx" style="  color: red;">¥ {{item.price_yh}}</view>
+              </view>
+              <view style="display:flex;line-height:50rpx;color:#999">
+                <view class="gmxx" style="font-size:28rpx;width:30%">
+                  <text wx:if="item.is_show==1">新品</text>
+                  <text wx:elif="item.is_hot==1">热销</text>
+                  <text wx:else>推荐</text>
+                </view>
+                <view class="ku" style="width:60%">销量：{{item.shiyong}}</view>
+              </view>
+            </navigator>
+          </view>
+
+        
+        </view></scroll-view>
     </view>
+   -->
   </swiper-item>
   
 
@@ -109,33 +156,45 @@
         <view class="name">分类：</view>
         <view class="df_1 c3">{{itemData.cat_name}}</view>
       </view>
+      <!--
       <view class="canshu df">
         <view class="name">售后：</view>
         <view class="df_1 c3">签收之日48小时无条件退货</view>
       </view>
+      -->
     </view>
   </swiper-item>
 </swiper>
+
 </view>
+
 <!---底部开始-->
 <view class="footfixed tc">
-  <view class="fl_l w40 font_12 hui03 df">
-          <view class="df_1 l_h15 pt5 bre">
+  <view class="fl_l w50 font_12 hui03 df">
+<!--
+    <view class="df_1 l_h15 pt5 bre">
                 <contact-button type="default-light" session-from="productId_{{itemData.id}}" class="ke">
                 <contact-button class="pos"></contact-button>
-                  <image class="icon_kf" src="/images/kefu.png" style="margin-right:20px;"></image>
+                  <image class="icon_kf" src="/images/kefu.png" style="margin-right:15px;"></image>
                   <view class="dbtext" style="line;margin-top:5px">客服</view>
                 </contact-button >
-          </view>
-            <view class="df_1 l_h15 pt5">
-                 <view bindtap="addFavorites">
-                    <image class="icon_kf" src="/images/shc.png" ></image>
-                    <view bindtap="addFavorites" class="dbtext">收藏</view>
-              </view>
-     </view>
+    </view>
+-->
+    <view class="df_1 l_h15 pt5">
+      <view bindtap="addFavorites">
+        <image class="icon_kf" src="/images/shc.png" ></image>
+        <view bindtap="addFavorites" class="dbtext">收藏</view>
+      </view>
+    </view>
+    <view class="df_1 l_h15 pt5">
+      <view bindtap="cheche">
+        <image class="icon_kf" src="/images/car.png" ></image>
+        <view  bindtap="cheche" class="dbtext">购物车</view>
+      </view>
+    </view>    
   </view>
-  <view class="fl_l w60">
-    <view class="w50 fl_l bg_cheng white" bindtap="addShopCart" data-type="addcart">加入购物车</view>
+  <view class="fl_l w50">
+    <view class="w50 fl_l bg_cheng white" bindtap="addShopCart" data-type="addcart">加购物车</view>
     <view class="bg_red white w50 fl_l" bindtap="setModalStatus" data-status="1">立刻购买</view>
   </view>
    </view>

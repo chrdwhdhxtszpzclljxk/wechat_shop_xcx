@@ -3,9 +3,13 @@
 var app = getApp();
 //引入这个插件，使html内容自动转换成wxml内容
 var WxParse = require('../../wxParse/wxParse.js');
+
+
 Page({
   firstIndex: -1,
   data:{
+    clientHeight:0,
+    srollHeight:500,
     bannerApp:true,
     winWidth: 0,
     winHeight: 0,
@@ -24,6 +28,7 @@ Page({
     //准备数据
     //数据结构：以一组一组来进行设定
      commodityAttr:[],
+     productData: [],
      attrValueList: []
   },
 
@@ -88,6 +93,13 @@ Page({
     that.setData({
       productId: option.productId,
     });
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          clientHeight: res.windowHeight
+        });
+      }
+    });    
     that.loadProductDetail();
 
   },
@@ -117,6 +129,41 @@ Page({
             commodityAttr:res.data.commodityAttr,
             attrValueList:res.data.attrValueList,
           });
+
+          setTimeout(function (e) {
+            //var that = this;
+            var page = 0;
+            wx.request({
+              url: app.d.ceshiUrl + '/Api/Index/getlist',
+              method: 'post',
+              data: { page: page },
+              header: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              success: function (res) {
+                var prolist = res.data.prolist;
+                if (prolist == '' || prolist == undefined) {
+                  wx.showToast({
+                    title: '没有更多数据！',
+                    duration: 2000
+                  });
+                  return false;
+                }
+                //that.initProductData(data);
+                that.setData({
+                  productData: prolist
+                });
+                //endInitData
+              },
+              fail: function (e) {
+                wx.showToast({
+                  title: '网络异常！',
+                  duration: 2000
+                });
+              }
+            })
+          }.bind(this),100);
+
         } else {
           wx.showToast({
             title:res.data.err,
@@ -161,6 +208,7 @@ Page({
     // 把数据对象的数据（视图使用），写到局部内
     var attrValueList = this.data.attrValueList;
     // 遍历获取的数据
+    if (commodityAttr == null) return;
     for (var i = 0; i < commodityAttr.length; i++) {
       for (var j = 0; j < commodityAttr[i].attrValueList.length; j++) {
         var attrIndex = this.getAttrIndex(commodityAttr[i].attrValueList[j].attrKey, attrValueList);
@@ -346,6 +394,12 @@ Page({
     data.videoPath = app.d.hostVideo + '/' +data.videoPath;
   },
 
+  //转到购物车
+  cheche: function (e) {
+    var that = this;
+    wx.switchTab({url:'/pages/cart/cart'});
+  },  
+
 //添加到收藏
   addFavorites:function(e){
     var that = this;
@@ -364,7 +418,7 @@ Page({
         var data = res.data;
         if(data.status == 1){
           wx.showToast({
-            title: '操作成功！',
+            title: '收藏成功！',
             duration: 2000
           });
           //变成已收藏，但是目前小程序可能不能改变图片，只能改样式
@@ -452,6 +506,45 @@ Page({
       bannerApp:false,
     })
   },
+
+  //点击加载更多
+  getMore: function (e) {
+    var that = this;
+    var page = that.data.page;
+    page = that.data.lastidx;
+    wx.request({
+      url: app.d.ceshiUrl + '/Api/Index/getlist',
+      method: 'post',
+      data: { page: page },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        var prolist = res.data.prolist;
+        if (prolist == '' || prolist == undefined) {
+          wx.showToast({
+            title: '没有更多数据！',
+            duration: 2000
+          });
+          return false;
+        }
+        //that.initProductData(data);
+        that.setData({
+          page: page + prolist.length,
+          lastidx: page + prolist.length,
+          productData: that.data.productData.concat(prolist)
+        });
+        //endInitData
+      },
+      fail: function (e) {
+        wx.showToast({
+          title: '网络异常！',
+          duration: 2000
+        });
+      }
+    })
+  },
+
   swichNav: function (e) {//点击tab切换
     var that = this;
     if (that.data.currentTab === e.target.dataset.current) {

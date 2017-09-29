@@ -11,6 +11,7 @@ Page({
     productData: [],
     proCat:[],
     page: 2,
+    lastidx:0,
     index: 2,
     brand:[],
     // 滑动
@@ -110,6 +111,7 @@ tian: function (e) {
 getMore:function(e){
   var that = this;
   var page = that.data.page;
+  page = that.data.lastidx;
   wx.request({
       url: app.d.ceshiUrl + '/Api/Index/getlist',
       method:'post',
@@ -119,7 +121,7 @@ getMore:function(e){
       },
       success: function (res) {  
         var prolist = res.data.prolist;
-        if(prolist==''){
+        if(prolist=='' || prolist==undefined){
           wx.showToast({
             title: '没有更多数据！',
             duration: 2000
@@ -128,7 +130,8 @@ getMore:function(e){
         }
         //that.initProductData(data);
         that.setData({
-          page: page+1,
+          page: page + prolist.length,
+          lastidx: page + prolist.length,
           productData:that.data.productData.concat(prolist)
         });
         //endInitData
@@ -179,6 +182,7 @@ getMore:function(e){
         var brand = res.data.brand;
         var course = res.data.course;
         //that.initProductData(data);
+        that.data.lastidx = that.data.lastidx + prolist.length;
         that.setData({
           imgUrls:ggtop,
           proCat:procat,
@@ -199,7 +203,7 @@ getMore:function(e){
   },
   onShareAppMessage: function () {
     return {
-      title: '宠物美容学校',
+      title: '唐能通短线是银',
       path: '/pages/index/index',
       success: function(res) {
         // 分享成功

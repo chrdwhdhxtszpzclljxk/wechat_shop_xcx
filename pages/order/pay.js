@@ -140,9 +140,16 @@ Page({
           }
         }else{
           wx.showToast({
-            title:"下单失败!",
+            title:"下单失败!33",
             duration:2500
           });
+
+          setTimeout(function () {
+            wx.redirectTo({
+              url: '../user/dingdan?currentTab=0&otype=pay',
+            });
+          }, 500);
+
         }
       },
       fail: function (e) {
@@ -170,6 +177,7 @@ Page({
         success: function(res){
           if(res.data.status==1){
             var order=res.data.arr;
+            console.log(order);
             wx.requestPayment({
               timeStamp: order.timeStamp,
               nonceStr: order.nonceStr,
@@ -182,16 +190,26 @@ Page({
                   duration:2000,
                 });
                 setTimeout(function(){
-                  wx.navigateTo({
+                  wx.redirectTo({
                     url: '../user/dingdan?currentTab=1&otype=deliver',
                   });
                 },2500);
               },
+              complete:function(res){
+                if (res == 'requestPayment:cancel'){
+                  setTimeout(function () {
+                    wx.redirectTo({
+                      url: '../user/dingdan?currentTab=0&otype=pay',
+                    });
+                  }, 500);                  
+                }
+              },
               fail: function(res) {
-                wx.showToast({
-                  title:res,
-                  duration:3000
-                })
+                  setTimeout(function () {
+                    wx.redirectTo({
+                      url: '../user/dingdan?currentTab=0&otype=pay',
+                    });
+                  }, 10);
               }
             })
           }else{

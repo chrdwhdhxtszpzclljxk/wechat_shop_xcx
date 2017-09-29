@@ -1,4 +1,8 @@
 /* pages/cart/cart.wxss */
+.czc{
+    display: flex;
+    align-items: center;
+}
 .clearbutton{
     background: #fff; 
     display: inline-block;

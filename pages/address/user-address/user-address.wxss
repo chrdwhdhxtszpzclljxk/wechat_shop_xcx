@@ -28,7 +28,7 @@ page {
 
 .address-name-phone {
   margin-bottom: 20rpx;
-  font-size: 11pt;
+  font-size: 12pt;
   font-weight: 900;
 }
 
@@ -38,6 +38,7 @@ page {
 
 .address-info {
   margin-bottom: 30rpx;
+  font-size: 12pt;
 }
 
 .address-edit {

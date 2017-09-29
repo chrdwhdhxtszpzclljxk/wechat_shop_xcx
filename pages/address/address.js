@@ -20,6 +20,47 @@ Page({
   formSubmit: function (e) {
     var adds = e.detail.value;
     var cartId = this.data.cartId;
+    if(adds.name == ""){
+      wx.showToast({
+        title: '请填写姓名！',
+        duration: 2000
+      });   
+      return false;   
+    }
+    if (adds.phone == "") {
+      wx.showToast({
+        title: '请填写手机号！',
+        duration: 2000
+      });
+      return false;
+    }
+
+    if (adds.address == "") {
+      wx.showToast({
+        title: '请填写详细地址！',
+        duration: 2000
+      });
+      return false;
+    }   
+
+    if (this.data.sheng == undefined ||this.data.sheng == 0) {
+      wx.showToast({
+        title: '请选择“省份”！',
+        duration: 2000
+      });
+      return false;
+    }   
+
+    if (this.data.city == undefined || this.data.city == 0) {
+      wx.showToast({
+        title: '请选择“城市”！',
+        duration: 2000
+      });
+      return false;
+    }   
+
+
+
     wx.request({
       url: app.d.ceshiUrl + '/Api/Address/add_adds',
       data: {
@@ -44,15 +85,16 @@ Page({
             title: '保存成功！',
             duration: 2000
           });
+          wx.redirectTo({
+            url: 'user-address/user-address?cartId=' + cartId
+          });          
         }else{
           wx.showToast({
             title: res.data.err,
             duration: 2000
           });
         }
-        wx.redirectTo({
-          url: 'user-address/user-address?cartId=' + cartId
-        });
+
       },
       fail: function () {
         // fail
@@ -128,9 +170,11 @@ Page({
         var hId = [];
         hArr.push('请选择');
         hId.push('0');
-        for (var i = 0; i < city.length; i++) {
-          hArr.push(city[i].name);
-          hId.push(city[i].id);
+        if(city != null && city != undefined){
+          for (var i = 0; i < city.length; i++) {
+            hArr.push(city[i].name);
+            hId.push(city[i].id);
+          }
         }
         that.setData({
           sheng:res.data.sheng,
@@ -173,9 +217,11 @@ Page({
         var qId = [];
         qArr.push('请选择');
         qId.push('0');
-        for (var i = 0; i < area.length; i++) {
-          qArr.push(area[i].name)
-          qId.push(area[i].id)
+        if (area != null && area != undefined) {
+          for (var i = 0; i < area.length; i++) {
+            qArr.push(area[i].name)
+            qId.push(area[i].id)
+          }
         }
         that.setData({
           city:res.data.city,

@@ -23,14 +23,14 @@
       ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#008842",
-    "navigationBarTitleText": "蓝果小镇商城",
+    "navigationBarBackgroundColor": "#ff8842",
+    "navigationBarTitleText": "短线图书商城",
     "navigationBarTextStyle":"white"
 
   },
    "tabBar": {
     "color": "#858585",
-    "selectedColor": "#008842",
+    "selectedColor": "#ff8842",
     "borderStyle": "white",
     "backgroundColor": "#ffffff",
     "list": [{

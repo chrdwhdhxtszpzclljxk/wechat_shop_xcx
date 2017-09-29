@@ -1,13 +1,13 @@
 // app.js
 App({
   d: {
-    hostUrl: 'https://wxplus.paoyeba.com/index.php',
+    hostUrl: 'https://wx.gwgz.com/index.php',
     hostImg: 'http://img.ynjmzb.net',
     hostVideo: 'http://zhubaotong-file.oss-cn-beijing.aliyuncs.com',
     userId: 1,
     appId:"",
     appKey:"",
-    ceshiUrl:'https://wxplus.paoyeba.com/index.php',
+    ceshiUrl:'https://wx.gwgz.com/index.php',
   },
   onLaunch: function () {
     //调用API从本地缓存中获取数据
@@ -18,7 +18,8 @@ App({
     this.getUserInfo();
   },
   getUserInfo:function(cb){
-    var that = this
+    var that = this;
+    console.log(that);
     if(this.globalData.userInfo){
       typeof cb == "function" && cb(this.globalData.userInfo)
     }else{
@@ -29,6 +30,7 @@ App({
           //get wx user simple info
           wx.getUserInfo({
             success: function (res) {
+              //console.log(res);
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo);
               //get user sessionKey

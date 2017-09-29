@@ -16,6 +16,13 @@ bindMinus: function(e) {
     if (num > 1) {
       num --;
     }
+    else{ 
+      wx.showToast({
+        title: '不能再减啦！',
+        duration: 2000
+      });      
+      return;
+    }
     console.log(num);
     var cart_id = e.currentTarget.dataset.cartid;
     wx.request({
@@ -47,7 +54,7 @@ bindMinus: function(e) {
           that.sum();
         }else{
           wx.showToast({
-            title: '操作失败！',
+            title: '操作失败！3',
             duration: 2000
           });
         }
@@ -99,7 +106,7 @@ bindPlus: function(e) {
           that.sum();
         }else{
           wx.showToast({
-            title: '操作失败！',
+            title: '操作失败！2',
             duration: 2000
           });
         }

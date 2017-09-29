@@ -4,36 +4,39 @@
    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" data-otype="deliver" bindtap="swichNav">待发货</view> 
   <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" data-otype="receive" bindtap="swichNav">待收货</view>
   <view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" data-otype="finish" bindtap="swichNav">已完成</view>
-  <view class="swiper-tab-list {{currentTab==4 ? 'on' : ''}}" data-current="4" bindtap="swichNav">退款/售后</view>
+  <view class="swiper-tab-list {{currentTab==4 ? 'on' : ''}}" data-current="4" bindtap="swichNav">售后</view>
 </view>
 <view class="c_t60"></view>
-<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height: {{clientHeight?clientHeight+'px':'auto'}}" bindchange="bindChange">
 
   <!-- 待付款 -->
   <swiper-item> 
     <view class="search_no" wx:if="{{!orderList0.length}}">
-        <view class="font_14"><image class="scimg" src="/images/search_no.png"></image></view>
+        <view class="font_16"><image class="scimg" src="/images/search_no.png"></image></view>
         <text>没有可用订单/(ㄒoㄒ)/~~</text>
     </view>
-
-    <view class="shop df" wx:for="{{orderList0}}">        
+  <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
+    <view class="shop df" wx:for="{{orderList0}}">   
+      <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">     
         <image class="sh_slt" src="{{item.photo_x}}"></image>
+      </navigator>     
         <view class="df_1">            
             <view class="sp_text">
-                <navigator url="../index/detail?productId={{item.pid}}" hover-class="changestyle">
+                <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
                 <view class="sp_tit ovh1">{{item.name}}</view>
                 </navigator>
                 <view class="sp_neb">单价：¥ {{item.price_yh}} 数量：×{{item.product_num}} 产品：×{{item.pro_count}}</view>
                 <view class="sp_jg">¥：{{item.price}}</view>
-                <view class="font_12 red fl_r" bindtap="payOrderByWechat" data-orderId="{{item.id}}" data-ordersn="{{item.order_sn}}" wx:if="{{item.type=='weixin'}}">微信支付</view>
+                <view class="font_16 red fl_r" bindtap="payOrderByWechat" data-orderId="{{item.id}}" data-ordersn="{{item.order_sn}}" wx:if="{{item.type=='weixin'}}">微信支付</view>
                 <!--<navigator class="font_12 red fl_r" url="../order/downline?orderId={{item.id}}" wx:if="{{item.PayType=='cash'}}">线下支付</navigator>-->
 
-                <view class="font_12 red fl_r mr_5" bindtap="removeOrder" data-order-id="{{item.id}}">取消订单</view>
-                <navigator url="../order/detail?orderId={{item.id}}" class="font_12 red fl_r mr_5">订单详情</navigator>
+                <view class="font_16 red fl_r mr_5" bindtap="removeOrder" data-order-id="{{item.id}}">取消订单</view>
+                <navigator url="../order/detail?orderId={{item.id}}" class="font_16 red fl_r mr_5">订单详情</navigator>
 
             </view>
         </view>
     </view>
+  </scroll-view>  
   </swiper-item>
 
   <!-- 待发货 -->
@@ -42,11 +45,14 @@
         <view class="font_14"><image class="scimg" src="/images/search_no.png"></image></view>
         <text>没有可用订单/(ㄒoㄒ)/~~</text>
     </view>
+    <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
     <view class="shop df" wx:for="{{orderList1}}">
+      <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
         <image class="sh_slt" src="{{item.photo_x}}"></image>
+      </navigator>
         <view class="df_1">            
             <view class="sp_text">
-                <navigator url="../index/detail?productId={{item.pid}}" hover-class="changestyle">
+                <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
                     <view class="sp_tit ovh1">{{item.name}}</view>
                 </navigator>
                 <view class="sp_neb">单价：¥ {{item.price_yh}} 数量：×{{item.product_num}} 产品：×{{item.pro_count}}</view>
@@ -56,6 +62,7 @@
             </view>
         </view>
     </view>
+    </scroll-view>
   </swiper-item>
 
   <!-- 待收货 -->
@@ -64,12 +71,15 @@
             <view class="font_14"><image class="scimg" src="/images/search_no.png"></image></view>
             <text>没有可用订单/(ㄒoㄒ)/~~</text>
         </view>
-        <view class="shop df" wx:for="{{orderList2}}">        
-        <image class="sh_slt" src="{{item.photo_x}}"></image>
+        <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
+        <view class="shop df" wx:for="{{orderList2}}">    
+          <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">    
+            <image class="sh_slt" src="{{item.photo_x}}"></image>
+          </navigator>
         <view class="df_1">            
             <view class="sp_text">
-                <navigator url="../index/detail?productId={{item.pid}}" hover-class="changestyle">
-                    <view class="sp_tit ovh1">{{item.name}}</view>
+                <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
+                  <view class="sp_tit ovh1">{{item.name}}</view>
                 </navigator>
                 <view class="sp_neb">单价：¥ {{item.price_yh}} 数量：×{{item.product_num}} 产品：×{{item.pro_count}}</view>
                 <view class="sp_jg">¥：{{item.price}}</view>
@@ -79,6 +89,7 @@
             </view>
         </view>
     </view>
+    </scroll-view>
   </swiper-item>
 
   <!-- 已完成-->
@@ -87,12 +98,15 @@
         <view class="font_14"><image class="scimg" src="/images/search_no.png"></image></view>
         <text>没有可用订单/(ㄒoㄒ)/~~</text>
     </view>
+    <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
     <view class="shop df" wx:for="{{orderList3}}">   
+      <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
         <image class="sh_slt" src="{{item.photo_x}}"></image>
+      </navigator>
         <view class="df_1">            
             <view class="sp_text">
-                <navigator url="../index/detail?productId={{item.pid}}" hover-class="changestyle">
-                    <view class="sp_tit ovh1">{{item.name}}</view>
+                <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
+                  <view class="sp_tit ovh1">{{item.name}}</view>
                 </navigator>
                 <view class="sp_neb">单价：¥ {{item.price_yh}} 数量：×{{item.product_num}} 产品：×{{item.pro_count}}</view>
                 <view class="sp_jg">¥：{{item.price}}</view>
@@ -100,6 +114,7 @@
             </view>
         </view>
     </view>
+    </scroll-view>
   </swiper-item>
 
   <!-- 退款/售后 -->
@@ -108,12 +123,14 @@
         <view class="font_14"><image class="scimg" src="/images/search_no.png"></image></view>
         <text>没有可用订单/(ㄒoㄒ)/~~</text>
     </view>
-
+    <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
     <view class="shop df" wx:for="{{orderList4}}">
+      <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
         <image class="sh_slt" src="{{item.photo_x}}"></image>
+      </navigator>
         <view class="df_1">            
             <view class="sp_text">
-                <navigator url="../index/detail?productId={{item.pid}}" hover-class="changestyle">
+                <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
                     <view class="sp_tit ovh1">{{item.name}}</view>
                 </navigator>
                 <view class="sp_neb">单价：¥ {{item.price_yh}} 数量：×{{item.product_num}} 产品：×{{item.pro_count}}</view>
@@ -123,5 +140,6 @@
             </view>
         </view>
     </view>
+    </scroll-view>
   </swiper-item>
 </swiper>

@@ -56,10 +56,10 @@
 
 <!--底部-->
 <view class="carts-footer">
-   <view bindtap="bindSelectAll">
+   <view bindtap="bindSelectAll" class="czc">
         
        <icon wx:if="{{selectedAllStatus}}" type="success_circle" size="24" />
-        <icon wx:else type="circle" size="24" />
+        <icon wx:else type="circle" size="24" style="margin-top:-2rpx;" />
         
         <text>全选</text>
         <text class="reds">{{total}}</text>

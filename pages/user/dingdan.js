@@ -5,6 +5,7 @@ var app = getApp();
 var common = require("../../utils/common.js");
 Page({  
   data: {  
+    clientHeight: 0,
     winWidth: 0,  
     winHeight: 0,  
     // tab切换  
@@ -19,11 +20,20 @@ Page({
     orderList4:[],
   },  
   onLoad: function(options) {  
+    var that = this;
     this.initSystemInfo();
     this.setData({
       currentTab: parseInt(options.currentTab),
       isStatus:options.otype
     });
+
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          clientHeight: res.windowHeight
+        });
+      }
+    });      
 
     if(this.data.currentTab == 4){
       this.loadReturnOrderList();
@@ -307,6 +317,7 @@ loadReturnOrderList:function(){
       success: function (res) {
         if (res.data.status == 1) {
           var order = res.data.arr;
+          console.log(order);
           wx.requestPayment({
             timeStamp: order.timeStamp,
             nonceStr: order.nonceStr,
@@ -326,7 +337,7 @@ loadReturnOrderList:function(){
             },
             fail: function (res) {
               wx.showToast({
-                title: res,
+                title: '支付未成功！',
                 duration: 3000
               })
             }
