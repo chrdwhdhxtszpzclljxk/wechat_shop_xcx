@@ -7,11 +7,11 @@
   </view>
   
   <view class="address-detail">
-    <view class="address-name-phone">
+    <view class="address-name-phone" bindtap="setDefault"  data-id="{{item.id}}">
       <text class="address-name">{{item.name}}</text>
       <text class="address-phone">{{item.tel}}</text>
     </view>
-    <view class="address-info">{{item.address_xq}}</view>
+    <view class="address-info" bindtap="setDefault" data-id="{{item.id}}" >{{item.address_xq}}</view>
     <view class="address-edit">
       <view>
         <icon></icon>

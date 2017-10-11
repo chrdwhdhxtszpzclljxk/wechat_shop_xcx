@@ -15,7 +15,8 @@ Page({
     vprice:0,
     vid:0,
     addemt:1,
-    vou:[]
+    vou:[],
+    yun:{}
   },
   onLoad:function(options){
     var uid = app.d.userId;
@@ -53,6 +54,7 @@ Page({
           total: res.data.price,
           vprice: res.data.price,
           vou: res.data.vou,
+          yun: res.data.yun,
         });
         //endInitData
       },
@@ -138,17 +140,20 @@ Page({
             //微信支付
             that.wxpay(data.arr);
           }
-        }else{
-          wx.showToast({
-            title:"下单失败!33",
-            duration:2500
-          });
+
 
           setTimeout(function () {
             wx.redirectTo({
               url: '../user/dingdan?currentTab=0&otype=pay',
             });
           }, 500);
+
+        }else{
+          wx.showToast({
+            title:data.err,
+            duration:2500
+          });
+
 
         }
       },
