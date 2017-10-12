@@ -181,6 +181,8 @@ Page({
   },
 // 属性选择
   onShow: function () {
+    if (this.data.commodityAttr == null) return;
+    
     this.setData({
       includeGroup: this.data.commodityAttr
     });
