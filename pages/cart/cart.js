@@ -2,6 +2,7 @@ var app = getApp();
 // pages/cart/cart.js
 Page({
   data:{
+    selectedAllStatus:false,
     page:1,
     minusStatuses: ['disabled', 'disabled', 'normal', 'normal', 'disabled'],
     total: 0,
@@ -207,6 +208,7 @@ onLoad:function(options){
 
 onShow:function(){
   this.loadProductData();
+  
 },
 
 removeShopCard:function(e){
@@ -267,7 +269,10 @@ removeShopCard:function(e){
         var cart = res.data.cart;
         that.setData({
           carts:cart,
+          selectedAllStatus:false
         });
+        
+        that.sum();
         //endInitData
       },
     });

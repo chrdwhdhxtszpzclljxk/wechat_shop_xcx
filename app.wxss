@@ -90,7 +90,7 @@ page{
 .mt35{margin-top: 35px;}
 .mt40{margin-top: 40px;}
 .mt60{margin-top: 60px;}
-.p_all{ padding: 3%;}
+.p_all{ padding: 2%;}
 
 /*边框*/
 .bte{border-top:solid 1px #eee;}

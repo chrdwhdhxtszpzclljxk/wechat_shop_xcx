@@ -2,6 +2,7 @@ var app = getApp();
 // pages/order/downline.js
 Page({
   data:{
+    clientHeight: 200,
     itemData:{},
     userId:0,
     paytype:'weixin',//0线下1微信
@@ -16,14 +17,25 @@ Page({
     vid:0,
     addemt:1,
     vou:[],
-    yun:{}
+    yun:{},
+    total_sp:0
   },
   onLoad:function(options){
     var uid = app.d.userId;
+    var that = this;
     this.setData({
       cartId: options.cartId,
       userId: uid
     });
+
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          clientHeight: (res.windowHeight-60)
+        });
+      }
+    });  
+
     this.loadProductDetail();
   },
   loadProductDetail:function(){
@@ -51,10 +63,11 @@ Page({
         that.setData({
           addemt: res.data.addemt,
           productData:res.data.pro,
-          total: res.data.price,
+          total_sp: res.data.price,
           vprice: res.data.price,
           vou: res.data.vou,
           yun: res.data.yun,
+          total: (parseFloat(res.data.price) + parseFloat(res.data.yun) ),
         });
         //endInitData
       },
@@ -149,8 +162,10 @@ Page({
           }, 500);
 
         }else{
+          var xtitle = data.err;
+          if(typeof(xtitle) == "undefined") xtitle = "网络访问错误！";
           wx.showToast({
-            title:data.err,
+            title: xtitle,
             duration:2500
           });
 
