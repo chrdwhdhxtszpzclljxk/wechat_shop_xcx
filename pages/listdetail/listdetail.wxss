@@ -97,19 +97,18 @@ page {
   width: 100%;
 }
 .ban{
-  width: 46%;
+  width: 44%;
   padding: 10rpx ;
   border: 2rpx solid #ccc;
   display: inline-block;
-  margin-left:6rpx 
+  margin-left:15rpx;
+  margin-top:15rpx;
 }
 .ban image{
   width: 100%;
 }
 .type{
-  font-size:30rpx;
-  font-weight: 700;
-  margin-left: 10rpx;
+  font-size:28rpx;
 }
  .kkk{
     font-size:26rpx;

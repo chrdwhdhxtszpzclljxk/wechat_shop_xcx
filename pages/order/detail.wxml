@@ -1,60 +1,60 @@
 <!--pages/order/detail.wxml-->
 <view class="w100">
-		<view class="p_all bg_white df item" wx:for="{{proData}}">
-        
-			<view class="cp_photo">	
+  <view class="p_all bg_white df item" wx:for="{{proData}}">
+    <view class="cp_photo">	
       <navigator url="../product/detail?productId={{item.pid}}" hover-class="changestyle">
-				<image src="{{item.photo_x}}"></image>
+        <image src="{{item.photo_x}}"></image>
       </navigator>
-			</view>
-			<view class="df_1">	
+    </view>
+    <view class="df_1">	
       <navigator url="../product/detail?productId={{item.pid}}" hover-class="changestyle">
-				<view class="font_14 mt5 ovh1">
-		      {{item.name}}
-		    </view>
+        <view class="font_16 mt5 ovh1">
+          {{item.name}}
+        </view>
       </navigator>
-			  <text class="gm_ovh_1h red pt10">¥{{item.price}}</text>
-			  <view class="sl">
-		        数量：{{item.num}}
-		    </view>
-			</view>
-		</view>		
+      <text class="gm_ovh_1h red pt10">¥{{item.price}}</text>
+      <view class="sl">
+          数量：{{item.num}}
+      </view>
+    </view>
+  </view>		
 		
-		<view class="p_all bg_white mt10 font_14">
-			<view class="df">
-				<view class="df_1 c6">
-				<view class="l_h20">收货人：{{orderData.receiver}}<text class="fl_r mr10">{{orderData.tel}}</text></view>
-				<view class="l_h20 mt5">地址：{{orderData.address_xq}}</view>
-				</view>
-			</view>
-		</view>	
+  <view class="p_all bg_white mt10 font_16">
+    <view class="df">
+      <view class="df_1 c6">
+      <view class="l_h20">收货人：{{orderData.receiver}}<text class="fl_r mr10">{{orderData.tel}}</text></view>
+      <view class="l_h20 mt5">地址：{{orderData.address_xq}}</view>
+      <view class="l_h20 mt5">运费：¥{{orderData.yunfei}}</view>
+      </view>
+    </view>
+  </view>	
 
-		<view class="p_all bg_white mt10 c6 l_h20  font_14">
-			<view >
-			订单状态：<text class="red">{{orderData.order_status}}</text>
-			</view>
-			<view >
-			订单编号：{{orderData.order_sn}}
-			</view>
-			<view class="mt10">
-			订单时间：{{orderData.addtime}}
-			</view>         
-		    </view>
+  <view class="p_all bg_white mt10 c6 l_h20  font_16">
+    <view >
+      订单状态：<text class="red">{{orderData.order_status}}</text>
+    </view>
+    <view >
+      订单编号：{{orderData.order_sn}}
+    </view>
+    <view class="mt10">
+      订单时间：{{orderData.addtime}}
+    </view>         
+  </view>
 
-           <view class="p_all bg_white mt10 font_14">
-			<textarea class="min_60" auto-height name="remark" disabled="{{true}}" placeholder="订单备注" value="{{orderData.remark?orderData.remark:'未备注'}}"/> 
-		</view>	
-
+  <view class="p_all bg_white mt10 font_16">
+		<textarea class="min_60" auto-height name="remark" disabled="{{true}}" placeholder="订单备注" value="{{orderData.remark?orderData.remark:'未备注'}}"/> 
+	</view>	
+<!--
 	<view class="zhifu mt10 tc">金额：<span class="font_20 red">¥ {{orderData.price}}</span></view>
-        
+-->        
+<!--底部-->
+<view class="carts-footer"  wx:if="{{orderData.status ==10}}">
+    <view bindtap="bindSelectAll" class="czc">
+      <text>支付总计：</text>
+      <text class="reds">¥{{totalm}}</text>
+    </view>
+    <view class="button" bindtap='payOrderByWechat'  data-orderId="{{orderData.id}}" data-ordersn="{{orderData.order_sn}}">微信支付</view>
+    <view class="font_16 red fl_r" bindtap="payOrderByWechat" data-orderId="{{item.id}}" data-ordersn="{{item.order_sn}}" wx:if="{{item.type=='weixin'}}">微信支付</view>
+</view>  
 
-	<view class="p_all mt10">
-		<view class="btnGreen">
-			        <!-- <button type="warn" size="{{warnSize}}" loading="{{loading}}" plain="{{plain}}"
-        disabled="{{disabled}}" bindtap="warn"> 确认 </button> -->
-        		<!--<contact-button type="default-light" session-from="orderNo_{{orderData.OrderNo}}">
-		        客服
-		        </contact-button>-->
-		</view>
-	</view>
 </view>
