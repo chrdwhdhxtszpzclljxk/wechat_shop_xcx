@@ -2,9 +2,10 @@
 var app = getApp()
 Page( {
   data: {
-    userInfo: {},
+    userInfo: { avatarUrl:"/images/huiyuan.png"},
     orderInfo:{},
     projectSource: 'https://github.com/liuxuanqiang/wechat-weapp-mall',
+    /*
     userListInfo: [ {
         icon: '../../images/iconfont-dingdan.png',
         text: '我的订单',
@@ -30,6 +31,7 @@ Page( {
         icon: '../../images/iconfont-help.png',
         text: '常见问题'
       }],
+      */
        loadingText: '加载中...',
        loadingHidden: false,
   },
@@ -38,6 +40,7 @@ Page( {
       //调用应用实例的方法获取全局数据
       app.getUserInfo(function(userInfo){
         //更新数据
+        console.log(userInfo.avatarUrl);
         that.setData({
           userInfo:userInfo,
           loadingHidden: true
@@ -86,7 +89,7 @@ Page( {
   },
   onShareAppMessage: function () {
     return {
-      title: '宠物美容学校',
+      title: '短线图书商城',
       path: '/pages/index/index',
       success: function (res) {
         // 分享成功

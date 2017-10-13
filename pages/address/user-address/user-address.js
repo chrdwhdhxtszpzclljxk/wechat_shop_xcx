@@ -26,7 +26,7 @@ Page({
       success: function (res) {
         // success
         var address = res.data.adds;
-        console.log(address);
+        //console.log(address);
         if (address == '') {
           var address = []
         }

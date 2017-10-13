@@ -4,13 +4,13 @@
 var app = getApp();
 Page({
     data: {
-        // types: null,
-        typeTree: {}, // 数据缓存
-        currType: 0 ,
-        // 当前类型
-        "types": [
-        ],
-        typeTree: [],
+      // types: null,
+      typeTree: {}, // 数据缓存
+      currType: 0 ,
+      // 当前类型
+      "types": [
+      ],
+      typeTree: [],
     },
         
     onLoad: function (option){
@@ -23,32 +23,30 @@ Page({
                 'Content-Type':  'application/x-www-form-urlencoded'
             },
             success: function (res) {
-                //--init data 
-                var status = res.data.status;
-                if(status==1) { 
-                    var list = res.data.list;
-                    var catList = res.data.catList;
-                    that.setData({
-                        types:list,
-                        typeTree:catList,
-                    });
-                } else {
-                    wx.showToast({
-                        title:res.data.err,
-                        duration:2000,
-                    });
-                }
-     that.setData({
-            currType: 2
-        });    
-      console.log(list)
-
+              //--init data 
+              var status = res.data.status;
+              if(status==1) { 
+                  var list = res.data.list;
+                  var catList = res.data.catList;
+                  that.setData({
+                    types:list,
+                    typeTree:catList,
+                  });
+              } else {
+                  wx.showToast({
+                    title:res.data.err,
+                    duration:2000,
+                  });
+              }
+              that.setData({
+                currType: 2
+              });    
             },
             error:function(e){
-                wx.showToast({
-                    title:'网络异常！',
-                    duration:2000,
-                });
+              wx.showToast({
+                title:'网络异常！',
+                duration:2000,
+              });
             },
 
         });

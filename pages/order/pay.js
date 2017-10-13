@@ -2,6 +2,7 @@ var app = getApp();
 // pages/order/downline.js
 Page({
   data:{
+    dataready:false,
     clientHeight: 200,
     itemData:{},
     userId:0,
@@ -17,7 +18,7 @@ Page({
     vid:0,
     addemt:1,
     vou:[],
-    yun:{},
+    yun:0,
     total_sp:0
   },
   onLoad:function(options){
@@ -61,6 +62,7 @@ Page({
           });
         }
         that.setData({
+          dataready:true,
           addemt: res.data.addemt,
           productData:res.data.pro,
           total_sp: res.data.price,
@@ -69,6 +71,7 @@ Page({
           yun: res.data.yun,
           total: (parseFloat(res.data.price) + parseFloat(res.data.yun) ),
         });
+        
         //endInitData
       },
     });
@@ -197,7 +200,7 @@ Page({
         success: function(res){
           if(res.data.status==1){
             var order=res.data.arr;
-            console.log(order);
+            //console.log(order);
             wx.requestPayment({
               timeStamp: order.timeStamp,
               nonceStr: order.nonceStr,

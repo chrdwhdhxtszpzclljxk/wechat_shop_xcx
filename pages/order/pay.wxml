@@ -1,5 +1,9 @@
 <!--pay.wxml-->
-<view class="w100">
+<view>
+<loading hidden="{{dataready}}">  
+  加载中...  
+</loading>  
+<view class="w100" wx:if="{{dataready==true}}">
 
   <view class="p_all bg_white mt10 font_16" wx:if="{{addemt==0}}">
     <navigator url="../address/user-address/user-address?cartId={{cartId}}" hover-class="none">
@@ -21,7 +25,7 @@
   </view>
 
 
-  <view class="p_all bg_white df item" wx:for="{{productData}}">
+  <view class="p_all bg_white df item" wx:for="{{productData}}" wx:key="id">
     <view class="cp_photo">			
       <image src="{{item.photo_x}}"></image>
     </view>
@@ -85,4 +89,5 @@
     <view class="button" bindtap='createProductOrderByWX'>微信支付</view>
 </view>  
 
+</view>
 </view>

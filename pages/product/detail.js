@@ -8,6 +8,7 @@ var WxParse = require('../../wxParse/wxParse.js');
 Page({
   firstIndex: -1,
   data:{
+    dataready:false,
     clientHeight:0,
     srollHeight:500,
     bannerApp:true,
@@ -124,6 +125,7 @@ Page({
           //that.initProductData(data);
           WxParse.wxParse('content', 'html', content, that, 3);
           that.setData({
+            dataready:true,
             itemData:pro,
             bannerItem:pro.img_arr,
             commodityAttr:res.data.commodityAttr,

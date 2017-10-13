@@ -16,7 +16,7 @@
         <text>没有可用订单/(ㄒoㄒ)/~~</text>
     </view>
   <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
-    <view class="shop df" wx:for="{{orderList0}}">   
+    <view class="shop df" wx:for="{{orderList0}}" wx:key="id">   
       <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">     
         <image class="sh_slt" src="{{item.photo_x}}"></image>
       </navigator>     
@@ -46,7 +46,7 @@
         <text>没有可用订单/(ㄒoㄒ)/~~</text>
     </view>
     <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
-    <view class="shop df" wx:for="{{orderList1}}">
+    <view class="shop df" wx:for="{{orderList1}}"  wx:key="id">
       <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
         <image class="sh_slt" src="{{item.photo_x}}"></image>
       </navigator>
@@ -72,7 +72,7 @@
             <text>没有可用订单/(ㄒoㄒ)/~~</text>
         </view>
         <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
-        <view class="shop df" wx:for="{{orderList2}}">    
+        <view class="shop df" wx:for="{{orderList2}}" wx:key="id">    
           <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">    
             <image class="sh_slt" src="{{item.photo_x}}"></image>
           </navigator>
@@ -83,7 +83,7 @@
                 </navigator>
                 <view class="sp_neb">单价：¥ {{item.price_yh}} 数量：×{{item.product_num}} 产品：×{{item.pro_count}}</view>
                 <view class="sp_jg">¥：{{item.price}}</view>
-                <navigator class="font_12 red fl_r" url="tuihuo?orderId={{item.id}}">申请退款</navigator>
+                <!--<navigator class="font_12 red fl_r" url="tuihuo?orderId={{item.id}}">申请退款</navigator>-->
                 <view class="font_12 red fl_r mr_5" bindtap="recOrder" data-order-id="{{item.id}}">确认收货</view>
                 <navigator url="../order/detail?orderId={{item.id}}" class="font_12 red fl_r mr_5">订单详情</navigator>
             </view>
@@ -99,7 +99,7 @@
         <text>没有可用订单/(ㄒoㄒ)/~~</text>
     </view>
     <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
-    <view class="shop df" wx:for="{{orderList3}}">   
+    <view class="shop df" wx:for="{{orderList3}}" wx:key="id">   
       <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
         <image class="sh_slt" src="{{item.photo_x}}"></image>
       </navigator>
@@ -124,7 +124,7 @@
         <text>没有可用订单/(ㄒoㄒ)/~~</text>
     </view>
     <scroll-view scroll-y='true' scroll-y style="height: {{clientHeight?clientHeight+'px':'auto'}}">
-    <view class="shop df" wx:for="{{orderList4}}">
+    <view class="shop df" wx:for="{{orderList4}}" wx:key="id">
       <navigator url="../order/detail?orderId={{item.id}}" hover-class="changestyle">
         <image class="sh_slt" src="{{item.photo_x}}"></image>
       </navigator>

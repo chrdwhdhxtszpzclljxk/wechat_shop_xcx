@@ -19,7 +19,7 @@ App({
   },
   getUserInfo:function(cb){
     var that = this;
-    console.log(that);
+    //console.log(that);
     if(this.globalData.userInfo){
       typeof cb == "function" && cb(this.globalData.userInfo)
     }else{

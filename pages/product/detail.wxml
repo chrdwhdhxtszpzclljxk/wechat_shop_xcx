@@ -1,12 +1,15 @@
 
 <!--pages/index/detail.wxml-->
 
-
+<view>
+<loading hidden="{{dataready}}">  
+  加载中...  
+</loading>  
 <!--内容开始-->
 <view class="cont">
   <!--<image class="tp_image" src="{{itemData.photo_d}}"></image>-->
   <swiper style="height:375px" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for="{{bannerItem}}">
+    <block wx:for="{{bannerItem}}" wx:key="id">
       <swiper-item>
         <image src="{{item}}" class="slide-image" />
       </swiper-item>
@@ -89,7 +92,7 @@
   <rich-text nodes="{{itemData.content}}" />
             <view class="cont_list">
             <navigator open-type="redirect" class="pr" url="../product/detail?productId={{item.id}}" hover-class="changestyle"
-                      wx:for="{{productData}}">
+                      wx:for="{{productData}}" wx:key="id">
               <image class="photo" src="{{item.photo_x}}"></image>
               <view class="title">{{item.name}}</view>
               <view style="display:flex;line-height:50rpx;padding:10rpx 0;">
@@ -198,3 +201,4 @@
     <view class="bg_red white w50 fl_l" bindtap="setModalStatus" data-status="1">立刻购买</view>
   </view>
    </view>
+</view>

@@ -1,6 +1,6 @@
 <!--pages/order/detail.wxml-->
 <view class="w100">
-  <view class="p_all bg_white df item" wx:for="{{proData}}">
+  <view class="p_all bg_white df item" wx:for="{{proData}}" wx:key="pid">
     <view class="cp_photo">	
       <navigator url="../product/detail?productId={{item.pid}}" hover-class="changestyle">
         <image src="{{item.photo_x}}"></image>
